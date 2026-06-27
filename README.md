@@ -19,17 +19,23 @@ across every app.
 - The skills read each app's `CLAUDE.md → Workflow conventions` for the roadmap format,
   ID rules, lifecycle, and branch prefixes. They do **not** hardcode the format.
 
-## Install (per device)
+## Install (per device) — skills-directory auto-load
 
-This repo is a Claude Code plugin. On each machine:
+This repo is a Claude Code plugin loaded via the skills directory (no marketplace, no
+`/plugin install`). It auto-loads every session as `claude-kit@skills-dir`.
 
-1. Clone it somewhere stable (e.g. `~/DEV/claude-kit`).
-2. Add it as a plugin marketplace / local plugin in Claude Code (see Claude Code plugin
-   docs for the current `plugin install` flow), pointing at this directory.
-3. Verify with `/inbox` — it should resolve.
+On each machine, clone it into the Claude skills directory:
+
+```bash
+git clone <your-remote> ~/.claude/skills/claude-kit
+# Windows: C:/Users/<you>/.claude/skills/claude-kit
+```
+
+Restart Claude Code, then verify with `/claude-kit:inbox` (plugin skills are namespaced).
+Update later with `git pull` in that directory.
 
 Conventions ride with each app (committed in the app's own `CLAUDE.md` + `roadmap.md`),
-so cloning an app repo + installing this plugin = full flow on any device.
+so cloning an app repo + this plugin = full flow on any device.
 
 ## Security
 
