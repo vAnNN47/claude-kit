@@ -25,7 +25,7 @@ category meanings, ID rules, and lifecycle. Those rules win; do not redefine the
      unique — grep roadmap.md + archive/ to avoid collisions), a plain one-liner, and a
      `> nerd:` technical line.
    - **Skill / tooling task** (work on the workflow or other skills) → `SKILLS-TODO.md`
-     in the claude-kit plugin repo.
+     in the claude-kit plugin repo (later drained by `/forge`, the tooling twin of `/fire`).
    - **Capability gap** = a recurring need with no tool yet. Do NOT build anything.
      Flag it and recommend one of: new *skill* (note: search the user's skill registry
      first, else `skills-creator`), new *instruction* (a CLAUDE.md rule), or just a

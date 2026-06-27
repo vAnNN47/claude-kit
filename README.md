@@ -3,13 +3,14 @@
 Personal Claude Code plugin: a repeatable **idea → execution** pipeline, reusable
 across every app.
 
-## The three skills
+## The four skills
 
 | Skill | What it does |
 |-------|--------------|
 | `/inbox` | Capture a raw brain-dump, split into items, **route** each: app task → `roadmap.md`, tooling task → `SKILLS-TODO.md`, capability gap → flagged. Proposes first, writes after you confirm. |
 | `/fire [id]` | Execute one roadmap item: branch → implement → tsc+lint → commit → move to `Done (unverified)`. One id, one branch, one commit. Local only. |
 | `/ship` | On your confirm, move verified items from `Done (unverified)` to `archive/[year]/[mm-month].md`. Bookkeeping only. |
+| `/forge [slug]` | The twin of `/fire` for the **tooling** queue: drain one `SKILLS-TODO.md` item — branch (in this repo) → build (delegating new testable skills to `skill-creator`) → load-check → commit → archive the line. One slug, one branch, one commit. Local only. |
 
 ## The model
 
