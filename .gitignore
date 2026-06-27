@@ -1,0 +1,9 @@
+# Secrets — never commit
+settings.local.json
+*.local
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+Thumbs.db

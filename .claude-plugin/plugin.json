@@ -1,0 +1,8 @@
+{
+  "name": "claude-kit",
+  "version": "0.1.0",
+  "description": "Personal idea-to-execution workflow: inbox (capture+route), fire (execute one roadmap item), ship (archive verified work). Reusable across apps.",
+  "author": {
+    "name": "leetbeck"
+  }
+}
