@@ -42,6 +42,81 @@ fixing then re-breaking, changing many things at once. This skill forbids that.
 7. **Content invisible vs absent** — text same color as background? image with no
    dimensions? Use the color probe to decide.
 
+## Known Issues
+
+Catalogued real-world root causes. If symptoms match, jump straight here — but still
+**reproduce + prove** (color probe / dump) before claiming the fix.
+
+### KI-1 · A custom-component `refreshControl` makes a `ScrollView` mount ZERO children (Android only)
+
+- **Symptom:** Screen renders header + tab bar, but the `ScrollView` body is **empty —
+  children are absent, not invisible** (an inline `backgroundColor:'red'` child inside the
+  ScrollView does NOT paint; the same probe *outside* the ScrollView does). No crash, no
+  redbox, no logcat error. **iOS renders fine** (lenient).
+- **Root cause:** the `refreshControl` prop was given a **custom wrapper component** (e.g.
+  `refreshControl={<RefreshSpinner .../>}`, where `RefreshSpinner` returns a `<RefreshControl>`)
+  instead of a **direct `<RefreshControl>` element**. RN's Android `ScrollView` special-cases /
+  clones the `refreshControl` child and expects it to *be* a `RefreshControl`; a wrapper breaks
+  that and the ScrollView renders none of its children. On New Architecture (Fabric) this is
+  silent (no error); iOS tolerates it.
+- **Fix (one line):** pass a direct element, lift the refreshing state into the screen:
+  ```tsx
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = async () => { setRefreshing(true); try { await refresh(); } finally { setRefreshing(false); } };
+  // ...
+  <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={c} colors={[c]} />}>
+  ```
+  Works on BOTH a raw RN `ScrollView` and a react-native-css (`useCssElement`) `@/tw` `ScrollView`.
+- **NOT the cause (ruled out by bisect, each proven with an on-device screenshot):** the
+  react-native-css / NativeWind `@/tw` wrapper (innocent — same blank with a raw RN ScrollView,
+  and renders fine once the refreshControl is a direct element); `style` vs `className` for
+  `flex-1`; flex/height collapse; color tokens (other tabs render fine); reanimated worklets/babel
+  (other screens use `useSharedValue`/`useAnimatedStyle` fine); a plain JS `onScroll` +
+  `scrollEventThrottle` (fine once the refreshControl is direct).
+- **Versions seen on:** Expo SDK `56.0.12` · React Native `0.85.3` · React `19.2.3` ·
+  New Architecture (Fabric) **enabled** · `react-native-css` `3.0.1` ·
+  `nativewind` `5.0.0-preview.4` · `react-native-reanimated` `4.3.1` ·
+  `react-native-worklets` `0.8.3` · `react-native-gesture-handler` `2.31.1` ·
+  `react-native-safe-area-context` `5.7.0`.
+- **Objects/APIs involved:** `ScrollView`, `RefreshControl`, `refreshControl` prop (must be a
+  direct `<RefreshControl>`, not a wrapper component), `onScroll`, `scrollEventThrottle`.
+- **Search terms / upstream:** "RefreshControl prevents ScrollView rendering children Android",
+  gesture-handler [#2227], [#1067]; reanimated [#5972] (`useAnimatedScrollHandler` + `refreshControl`
+  Android).
+- **Fast on-device proof (no asking the user):** `adb exec-out screencap` / `adb shell screencap
+  -p && adb pull` to SEE the screen; `adb shell uiautomator dump` to read the actual node tree
+  (absent children = only header/tab text nodes present). Bisect props by editing + re-screencap.
+  Bisect with an inline red probe OUTSIDE vs INSIDE the ScrollView to prove children-absent.
+
+### KI-2 · RTL-only: a single-line `TextInput` with `textAlign:"right"` kills ScrollView scroll on Android
+
+- **Symptom:** A form scrolls fine in **LTR/English** but in **RTL/Hebrew the ScrollView won't scroll**
+  on Android (and the scroll indicator is missing — no scroll, no scrollbar). iOS scrolls fine in
+  both. Often pinned to *one* screen that has a text field.
+- **Root cause:** **React Native bug [#16206](https://github.com/facebook/react-native/issues/16206)** —
+  a **single-line** `TextInput` whose `textAlign` is `"right"` (or `"center"`) inside a `ScrollView`
+  blocks scrolling on **Android**. RTL flips inputs to `textAlign:"right"`, so the bug only shows in
+  RTL. LTR uses `textAlign:"left"` → no bug. **`multiline` TextInputs are immune** (multiline is the
+  documented workaround), so a multiline field on the same screen scrolls — which misleads you.
+- **The platforms disagree on the fix — it MUST be platform-split:**
+  - **Android:** drop `textAlign`, set **`writingDirection:"rtl"` only** (right-aligns text + placeholder
+    there *and* dodges #16206).
+  - **iOS:** keep `textAlign:"right"` — iOS needs it (with `writingDirection` alone the placeholder
+    sticks **left**) and iOS has no such scroll bug.
+  ```tsx
+  // single-line input inside a ScrollView, RTL-aware:
+  style={Platform.OS === "android" ? { writingDirection } : { textAlign: "right", writingDirection }}
+  ```
+  Multiline inputs can keep `textAlign` on both platforms (immune).
+- **Ruled out (each by on-device screenshot, RTL vs LTR):** keyboard-controller version (no RTL fix in
+  the changelog), `mode`/`flex`/`persistentScrollbar`, the scrollbar being a cosmetic Android-RTL quirk
+  (it's not — scroll is genuinely dead, the missing bar is a *symptom*).
+- **Search terms:** RN #16206 "scrolling TextInput in ScrollView textAlign right center android",
+  textAlign right ScrollView not scrolling RTL, writingDirection vs textAlign placeholder iOS RTL.
+- **Fast proof:** flip the app to the RTL locale, try to scroll → dead; switch the offending field to
+  the platform-split style → scrolls. `adb shell uiautomator dump` shows the content is present (just
+  unscrollable).
+
 ## Output
 
 State: the platform divergence, the **single confirmed root cause** (with the evidence
