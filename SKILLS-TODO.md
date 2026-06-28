@@ -11,6 +11,12 @@ App tasks go to each app's `roadmap.md` instead.
   callers / gotchas for fast re-orientation after time away.
 - [where_was_i] — advisor for cold-start: read roadmap.md + git log + last branch +
   Done(unverified), output "you were doing X, next Y, N in queue". No /wtf needed.
+- [skill_refinery] — /refinery: before solving a known recurring RN problem with custom code, scan
+  installed packages (machine-scope skills dir) + web-search whether a newer upstream version already
+  fixes it; try upstream first, verify with the user, else fall back to the local package.
+- [skill_lessons] — /lessons (מסקנות): after a hard bug is solved, distill the recipe into a new
+  rn-debug Known Issue (symptom / root-cause / fix / versions) + commit & push per existing rules, so
+  recurrences are looked up, not re-researched. Twin of the first app's /logbug.
 
 ## Capability gaps (flagged by inbox, not yet actioned)
 
