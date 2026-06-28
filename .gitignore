@@ -7,3 +7,7 @@ settings.local.json
 # OS / editor
 .DS_Store
 Thumbs.db
+
+# Marketplace skills (skills.sh) — materialized files + symlinks are machine-specific.
+# skills-lock.json IS tracked (the portable manifest); restore with `npx skills add`.
+/.agents/
