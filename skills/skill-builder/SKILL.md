@@ -24,17 +24,23 @@ footer). `/forge` delegates here when a queued item is a new, judgment/glue skil
    match exactly. Reject a name that overlaps an existing skill (check `skills/` first) — extend
    the existing one instead of cloning it.
 
-2. **Study the field — structure ONLY, never bodies.** Fetch the top ~10–20 skills from
-   **skills.sh** (sort by most-downloaded / top-rated). For each, look *only* at shape:
-   - frontmatter fields used (name, description, argument-hint, anything else),
-   - SKILL.md length (most are one screen),
-   - whether they split a `references/` file or ship a `scripts/` dir — and *why* (was it real
-     compute, or bloat?),
-   - whether they ship python and whether it was actually needed.
-
-   Distil the **common minimal pattern**. Do NOT copy prose, examples, or instructions from any
-   skill — you are learning the skeleton, not the meat. If the web is unreachable, fall back to
-   the in-repo exemplars (`inbox`, `fire`, `ship`) as the pattern.
+2. **Study the field — read the REAL top skills, structure only.** Two steps, both mandatory:
+   1. **Get the leaderboard.** Fetch `https://skills.sh` for the top ~10–20 by install count —
+      capture each skill's `name` and its `owner/repo`.
+   2. **Go to the repos and read the actual files.** The skills.sh listing page does NOT show
+      structure — never conclude from it alone, and never fall back to local exemplars just because
+      it looks thin. For each top repo, census the tree, then read a handful of real `SKILL.md`s:
+      ```
+      gh api repos/<owner>/<repo>/git/trees/HEAD?recursive=1 \
+        --jq '.tree[].path | select(test("SKILL[.]md$|[.]py$|/scripts/|/references/"))'
+      gh api repos/<owner>/<repo>/contents/<path-to>/SKILL.md --jq '.content' | base64 -d
+      ```
+   Record a short **structure census** before authoring: frontmatter fields actually used (top
+   skills carry triggers *inside* a rich `description` — "use when X" — not a separate line); typical
+   SKILL.md length (most are one screen); how often a `scripts/` or `references/` appears and *why*
+   (real shell automation / huge multi-SDK lookup — not bloat); whether any ship python (the popular
+   ones don't). Learn the skeleton; never copy prose. **Fallback to in-repo exemplars (`inbox`,
+   `fire`, `ship`) ONLY if `gh`/network is genuinely unavailable** — and say so.
 
 3. **Decide the shape (default = one file).**
    - **SKILL.md only, markdown** — the default. Choose this unless you can name the reason not to.
@@ -64,6 +70,9 @@ footer). `/forge` delegates here when a queued item is a new, judgment/glue skil
 - **No python by reflex.** Add a script only for real compute, and prefer node/bash. Never copy the
   skill-creator python scaffold.
 - **Learn structure, don't plagiarise.** Study the top skills' skeleton; write your own words.
+- **Read the real repos, not the listing.** skills.sh shows ranks, not structure. Go to
+  `owner/repo` via `gh` and read actual `SKILL.md`s. Falling back to local exemplars because the
+  listing "looked thin" is the exact shortcut this step forbids.
 - **One skill per call.** Building two = run it twice.
 - **Frontmatter must load.** `name` matches the folder, fields are strings, bracketed hint quoted —
   a skill that won't load is the failure this gate prevents.
