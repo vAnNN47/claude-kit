@@ -8,7 +8,9 @@ description: Execute one roadmap item end-to-end by its id — branch, implement
 Take a single `[id]` from `roadmap.md` to a committed, locally-isolated change.
 
 Read the current app's `CLAUDE.md → Workflow conventions` first for branch prefixes,
-commit rules, and the lifecycle. Those rules win.
+commit rules, and the lifecycle. Those rules win. Then apply the global engineering rules in
+claude-kit `STANDARDS.md` (no-`any`, never-guess, LSP-over-grep, verify gate, no AI attribution) —
+detect the project's stack and use only the matching sections.
 
 ## Steps
 

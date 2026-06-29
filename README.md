@@ -52,7 +52,14 @@ Then reload your editor. Conventions ride along with each app (in that app's `CL
 
 ## The model (1 line)
 
-**Run it → skill** (these). **Know it → instruction** (each app's `CLAUDE.md`). **Import it → component** (code in the app's `src/`).
+**Run it → skill** (these). **Know it → instruction.** **Import it → component** (code in the app's `src/`).
+
+Instructions split by reach:
+- **Global / cross-app** (every project) live here in claude-kit, loaded by the skills:
+  [`STANDARDS.md`](STANDARDS.md) (engineering rules: no-`any`, never-guess, LSP-over-grep, verify gate,
+  git hygiene — env-aware), the [`rn-debug` Known Issues](skills/rn-debug/SKILL.md) (portable RN/Expo
+  mega-bug registry), and [`bug-journal.md`](bug-journal.md) (solved tooling/plugin postmortems).
+- **App-specific** (one project's stack/conventions) live in **that app's `CLAUDE.md`**.
 
 ## Security
 

@@ -15,6 +15,10 @@ Two verbs over one toolchain:
 > Neither just *tidies*. polish does — `check` to see the state, `run` to clean it. The split keeps
 > "show me" and "change my files" as separate, deliberate calls.
 
+> **Standards:** the quality bar polish enforces is claude-kit `STANDARDS.md` (no-`any`, no unused
+> imports/dead code, one-line JSDoc on exports, type-check + lint clean). Detect the project's stack
+> and apply only the matching sections.
+
 ## Mode resolution
 
 Parse the arg: `run` → fix mode; `check`, empty, or anything else → check mode. List the resolved
