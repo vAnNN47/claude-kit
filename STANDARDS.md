@@ -37,6 +37,9 @@ the sections that match.
   - Python (`pyproject.toml`/`uv`) → `ruff`/`mypy`/`pytest` as configured (the user runs Python via
     **uv**, never bare `python`).
   - Else → the framework's build/check equivalent.
+- **Invoke the toolchain directly** — `npx` / `npm` / `uv` etc., assuming node/tooling is on PATH.
+  Don't prepend a version-manager activation dance (no `fnm env`/`nvm use` ceremony); if a binary
+  truly isn't found, locate and call it, don't bake an activation step into the project's docs.
 - **Device / emulator / runtime / visual checks are the USER's job**, not the gate. Finish the
   static gate → the automated part is done; the user runs it and reports findings.
 
