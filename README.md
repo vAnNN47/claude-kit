@@ -16,6 +16,7 @@ Plain words below — you don't need to be a programmer to follow it.
 | `/forge` | Like `/fire`, but builds new **skills** instead of app features. | Draining the skills backlog. |
 | `/skill-tester` | Proves a skill actually works before it ships. | Runs automatically inside `/forge`. |
 | `/skill-builder` | Builds a NEW skill the lean way — studies the top skills' shape, writes one markdown file, no python bloat. | Creating a brand-new skill. |
+| `/polish` | `check` lists type/lint/format problems; `run` fixes the safe ones. | Tidy the tree before a commit. |
 | `/rn-debug` | Hunts "works on iPhone, blank on Android" bugs without flailing. | A screen breaks on one platform. |
 | `/refinery` *(planned)* | Before hand-coding a fix, checks if a package or a newer version already solved it. | Starting on a known-hard problem. |
 | `/lessons` *(planned)* | After beating a nasty bug, saves the recipe so you never re-fight it. | Right after a hard win. |

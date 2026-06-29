@@ -17,12 +17,6 @@ App tasks go to each app's `roadmap.md` instead.
 - [skill_lessons] — /lessons (מסקנות): after a hard bug is solved, distill the recipe into a new
   rn-debug Known Issue (symptom / root-cause / fix / versions) + commit & push per existing rules, so
   recurrences are looked up, not re-researched. Twin of the first app's /logbug.
-- [polish_check] — /polish: local quality gate that runs the project's type-check + lint +
-  format check, parses the output, and reports errors/warnings grouped by file (no branch, no
-  commit). Lightweight read-only twin of /fire's gate. Per-stack commands: Astro/TS → `astro check`
-  (tsc) + `eslint` (eslint-plugin-astro) + `prettier --check`; detect from package.json scripts/deps.
-  NOTE: Astro-Leetbeck site has no eslint/prettier wired yet — skill should detect-and-offer-to-add,
-  or fall back to `astro check` only. Optional `--fix` to apply eslint/prettier autofixes.
 
 ## Capability gaps (flagged by inbox, not yet actioned)
 
