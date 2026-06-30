@@ -71,7 +71,9 @@ All work happens **in the claude-kit repo** (`~/.claude/skills/claude-kit/`, its
    item lives in exactly one place — open, then archived.
 
 9. **Report.** What you built, the load-check + self-test results, the branch + commit, and
-   anything left open.
+   anything left open. **Close by naming the next rung** (STANDARDS → "Close by naming the next
+   rung"): the skill branch is committed and ready to publish — tell the user to run `/land` to
+   merge + push it. Name `/land` explicitly; don't ask a vague "push the branch?".
 
 ## Rules
 

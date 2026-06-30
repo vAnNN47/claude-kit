@@ -34,6 +34,12 @@ the sections that match.
 - **Git hygiene:** never track secrets or per-machine config. Ignore all env files but a template
   (`.env` / `.env.*` / `!.env.example`); split Claude config into committed `settings.json` (shared)
   + gitignored `settings.local.json` (per-machine).
+- **Close by naming the next rung — never hand-wave "push the branch?".** End every workflow skill's
+  Report with the *exact* next skill to run, decided by git state (`git status --porcelain` +
+  `git rev-list --count <trunk>..HEAD`): **uncommitted changes** → the commit skill (`/fire` app ·
+  `/forge` skill) first, *then* `/land`; **committed, app work** → `/ship` to archive, then `/land`
+  to publish; **committed, already archived / skill work** → `/land`. `/land` is the only rung that
+  pushes — name it explicitly; don't ask a vague "want me to push?".
 
 ## Verification gate (auto-detect per project)
 

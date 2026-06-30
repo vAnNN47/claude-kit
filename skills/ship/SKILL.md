@@ -33,7 +33,10 @@ entry format.
 4. **Remove** the archived items from `roadmap.md`'s `Done (unverified)` section.
    **Move, never delete** — the entry now lives in the archive.
 
-5. **Report** what was archived and what (if anything) stayed in Done (unverified).
+5. **Report** what was archived and what (if anything) stayed in Done (unverified). **Close by
+   naming the next rung** (STANDARDS → "Close by naming the next rung"): the archived branch is now
+   ready to publish — tell the user to run `/land` to merge + push it. Name `/land` explicitly;
+   don't ask a vague "push the branch?".
 
 ## Rules
 
