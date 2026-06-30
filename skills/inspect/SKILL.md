@@ -51,6 +51,10 @@ check catalog differs.
      a `Not this skill's job` footer pointing at a neighbour that doesn't exist.
    - **won't-load** — frontmatter that breaks: `name` ≠ folder, missing `description`, unquoted
      bracket hint.
+   - **stranded rule** — a portable rule/preference that lives only in machine-local memory
+     (`~/.claude/.../memory/`) or `settings.local.json` instead of a committed file, so it can't reach
+     other clones (STANDARDS → "A portable rule you learn mid-task goes into claude-kit"). Flag it to
+     move into `STANDARDS.md` / `bug-journal.md` / the right `SKILL.md` / the app's `CLAUDE.md`.
 
    **app catalog (claims vs git):**
    - commit carries `Co-Authored-By` when CLAUDE.md forbids it.

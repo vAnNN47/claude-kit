@@ -56,6 +56,17 @@ the sections that match.
     back to its roadmap item. So: the **worktree directory** is the throwaway/random part (it gives
     the isolation), the **branch keeps the id** (it gives the traceability). `isolation: "worktree"`
     already does exactly this — temp dir + real id-named branch. Don't randomize the branch.
+- **A portable rule you learn mid-task goes into claude-kit (git → clones), never machine-local
+  memory.** `~/.claude/.../memory/` and any `settings.local.json` are **per-machine — they do not
+  travel to other clones.** A durable rule saved there is invisible on every other device (silent
+  portability loss). So route by reach, and **commit it** so every clone gets it:
+  - cross-app **rule / preference** (applies to every project) → this `STANDARDS.md`;
+  - cross-app **bug / environment recipe** → `bug-journal.md`;
+  - **workflow / skill behavior** → the relevant `skills/*/SKILL.md`;
+  - **app-specific** convention (one project's stack) → that app's `CLAUDE.md`.
+
+  Machine-local memory is only for genuinely machine-specific facts (a local path, a per-box quirk).
+  If a rule should hold "from now on, everywhere," it belongs in a committed file, not memory.
 
 ## Verification gate (auto-detect per project)
 

@@ -77,6 +77,11 @@ conventions` / claude-kit `STANDARDS.md` — obey it, don't redefine it here.
      Flag it and recommend one of: new *skill* (note: search the user's skill registry
      first, else `skills-creator`), new *instruction* (a CLAUDE.md rule), or just a
      *component* (reusable code — most "make X reusable" items are this, not a skill).
+   - **Portable rule / preference** ("from now on, everywhere…") → a committed file, **never
+     machine-local memory** (STANDARDS → "A portable rule you learn mid-task goes into claude-kit"):
+     cross-app rule → `STANDARDS.md`; cross-app bug recipe → `bug-journal.md`; skill behavior →
+     the relevant `skills/*/SKILL.md`; app-specific → that app's `CLAUDE.md`. `~/.claude/.../memory/`
+     doesn't clone — a durable rule parked there dies on one machine.
 
 3. **Plan gate.** For each app task, apply the **Plan gate** (above): mark it *needs-plan* or
    *no-plan*. If any item needs a plan and you're not already in plan mode, `EnterPlanMode` now and
