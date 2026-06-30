@@ -1,6 +1,7 @@
 # Archive — June 2026
 
 ## 2026-06-30
+- [ship_merge_helper] (skill) — /land: confirm-gated merge+push step (the one /fire, /ship, /forge refuse). ff-only merge of a branch into trunk (main|master), push trunk to origin, prune; refuses non-ff (rebase first), never force-pushes, pushes trunk only. Works in any repo (kit or app). self-test PASS (bare-origin sandbox: ff+push+prune + behind-branch refusal) → chore/forge_ship_merge_helper
 - [inspect] (skill) — /inspect: read-only workforce auditor (kit | app); 3-layer SCAN→CONCLUDE→LEDGER engine, stable de-duped finding ids (insp_<check>_<slug>), append-only idempotent ledger so re-runs converge to silence; built ad-hoc (no inbox line), self-test PASS → chore/forge_inspect
 - [inbox_plan_gate] (skill) — inbox plan gate: agent judges per item whether a plan is needed; if yes → EnterPlanMode + ask questions + write docs/plans/<id>.md + pointer nerd line, if no → nerd line only; TEST.md pins both paths; self-test PASS → chore/forge_inbox_plan_gate
 
