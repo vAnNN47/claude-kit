@@ -40,6 +40,23 @@ inbox only *reads* the tactic and files into it:
   category (bug / improvement / tech debt), since that drives the header (`section`) or the inline
   `_(bug)_` / `_(improvement)_` / `_(tech debt)_` tag (`flat`).
 
+## Plan gate (app tasks)
+
+Not every item needs a plan — but the ones that do must get one, whether or not the user remembered
+to start in plan mode. So **judge each app task**: does it need a committed `docs/plans/<id>.md`?
+
+- **Needs a plan** (any one): a build-approach decision (e.g. vanilla vs framework island, schema
+  shape, new collection), multi-step work, real ambiguity / needs investigation, or a large
+  brain-dump.
+- **No plan**: a clear one-liner with an obvious approach (e.g. "make the header text red").
+
+If **any** item needs a plan and you are **not already in plan mode**, call `EnterPlanMode` before
+proposing, **ask the clarifying questions** that plan needs, and draft the plan(s) there. On approval
+(`ExitPlanMode`) write each `docs/plans/<id>.md` and point that item's `> nerd:` line at it
+(`> nerd: … — see docs/plans/<id>.md`). Items that don't need a plan keep the normal inline nerd line.
+The plan-file spec (frontmatter, "nerd line → pointer") lives in the app `CLAUDE.md → Workflow
+conventions` / claude-kit `STANDARDS.md` — obey it, don't redefine it here.
+
 ## Steps
 
 1. **Split.** Break the user's input into discrete items (one idea = one item). A single
@@ -61,16 +78,22 @@ inbox only *reads* the tactic and files into it:
      first, else `skills-creator`), new *instruction* (a CLAUDE.md rule), or just a
      *component* (reusable code — most "make X reusable" items are this, not a skill).
 
-3. **Ask when unsure.** If an item is ambiguous (category unclear, or app-vs-tooling
+3. **Plan gate.** For each app task, apply the **Plan gate** (above): mark it *needs-plan* or
+   *no-plan*. If any item needs a plan and you're not already in plan mode, `EnterPlanMode` now and
+   ask the clarifying questions before proposing.
+
+4. **Ask when unsure.** If an item is ambiguous (category unclear, or app-vs-tooling
    unclear), ask the user one focused question instead of guessing.
 
-4. **Propose.** Show the full mapping as a table/list: each item → bucket → category →
-   id → the exact lines that would be written (in the active tactic's shape). Group
-   capability gaps with your recommendation. Do not touch any file yet.
+5. **Propose.** Show the full mapping as a table/list: each item → bucket → category →
+   id → *plan verdict* → the exact lines that would be written (in the active tactic's shape).
+   For needs-plan items, include the drafted plan (you are in plan mode). Group capability gaps with
+   your recommendation. Do not touch any file yet.
 
-5. **Confirm → write.** After the user approves (and applies any edits), append entries:
+6. **Confirm → write.** After the user approves (and applies any edits), append entries:
    - app tasks → correct section of `roadmap.md` (new items go to the *bottom* of their
      section unless the user says it's high priority — order = priority)
+   - needs-plan items → also write `docs/plans/<id>.md` and make the nerd line a pointer to it
    - tooling tasks → `SKILLS-TODO.md`
    - capability gaps → the flagged list in `SKILLS-TODO.md`
    Then summarize what was written and where.
@@ -81,3 +104,5 @@ inbox only *reads* the tactic and files into it:
 - Keep IDs greppable and never reuse a retired id.
 - One idea can only land in one bucket. If it's genuinely two things, split it.
 - **Don't redefine the layout.** Read the tactic; `roadmap convert` owns A↔B switches, not inbox.
+- **Plan gate, both ways.** File a plan only for items that need one (never blanket-plan a trivial
+  one-liner), and never skip a plan an item does need. The judgement is the gate — see *Plan gate*.
