@@ -50,14 +50,25 @@ A bug that works on iPhone but breaks on Android can swallow an afternoon. Don't
 git clone <this-repo> ~/.claude/skills/claude-kit
 cd ~/.claude/skills/claude-kit
 npx skills add            # restores marketplace skills from skills-lock.json
-export PATH="$HOME/.claude/skills/claude-kit/bin:$PATH"   # add to your shell rc to keep it
+export PATH="$HOME/.claude/skills/claude-kit/bin:$PATH"                  # bin/ helpers on PATH
+source "$HOME/.claude/skills/claude-kit/shell/fire.bash"                 # `fire <slug>` + Tab-complete (bash/zsh)
 ```
+
+PowerShell: add to your `$PROFILE` instead —
+```powershell
+. "$env:USERPROFILE\.claude\skills\claude-kit\shell\fire.ps1"
+```
+
+Both source the same logic from the repo, so an edit in `shell/` reaches every cloned device on the
+next shell reload — no per-machine copy to keep in sync.
 
 Then reload your editor. Conventions ride along with each app (in that app's `CLAUDE.md`), so cloning an app + this toolkit = the full flow on any device.
 
 `bin/` holds standalone terminal helpers (no LLM call) that ride along with the skills — currently
 `roadmap-ids` (list every roadmap id, for `/fire <id>` / `/ship <id>`; see
-[`skills/roadmap/SKILL.md`](skills/roadmap/SKILL.md)).
+[`skills/roadmap/SKILL.md`](skills/roadmap/SKILL.md)). `shell/` holds shell-rc snippets you `source`:
+`fire.ps1` / `fire.bash` give a `fire <slug>` command that launches `/fire` with **Tab-completed
+roadmap slugs** (type `fire comfy<Tab>`) — read from the nearest `roadmap.md`.
 
 ## The model (1 line)
 
