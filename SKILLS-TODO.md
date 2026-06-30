@@ -20,7 +20,23 @@ App tasks go to each app's `roadmap.md` instead.
   `bug-journal.md` (both registries now exist + seeded). Commit per existing rules. Twin of the first
   app's /logbug. Pairs with [skill_refinery] (which reads a KI's `versions`+`search-terms` to re-check
   upstream before re-applying the fix).
+- [timeline_provenance_stamps] — every roadmap/archive item carries dated frontmatter
+  (`inboxed:` / `fired:` / `shipped:`). /inbox stamps `inboxed`, /fire stamps `fired`, /ship stamps
+  `shipped`. This is a cheap *log* on EVERY item (text changes included), distinct from the
+  heft-gated *plan doc* (`docs/plans/<id>.md`, complex items only). Purpose: trace an item across the
+  inbox→ship gap (e.g. inboxed Jun 30, shipped Aug 12). Add the rule to each app's CLAUDE.md workflow
+  block + teach inbox/fire/ship to write the stamps. Powers [history_crisscross].
+- [history_crisscross] — /history <topic>: read-only query crossing `docs/plans/` ↔
+  `archive/[year]/[mm-month].md` ↔ `git log`, answering "when did we decide / change / ship X?".
+  Consumes the [timeline_provenance_stamps] dates. May rent a read-only investigator subagent for big
+  greps. It is a **skill** (on-demand query), not a standing agent. Sibling of [where_was_i]
+  (cold-start "where am I now") — this is temporal lookup of *past* decisions; keep distinct, share
+  the date-reading helper.
 
 ## Capability gaps (flagged by inbox, not yet actioned)
 
-_(empty)_
+- [version_delta_tracking] — diff "shipped to prod" vs "in main, not yet released"
+  (`git log release..main`, or an `[Unreleased]` CHANGELOG section). **NOT needed yet:** apps
+  auto-deploy `main` via Cloudflare Pages — no release branch/tag, so there is no prod-vs-next delta
+  to compute. Build the day a **staged release** exists (main = next, a `release` branch/tag = live),
+  not before. Parked = YAGNI until staged deploys.
