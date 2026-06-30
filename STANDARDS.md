@@ -47,6 +47,15 @@ the sections that match.
   No worktrees? **Serialize** — one build at a time in the shared checkout. Land serially regardless:
   `/land` the first (ff-only), rebase the next onto the new tip, land it; `/land` refuses a non-ff so
   a tangled merge can't happen by accident. Single-threaded work needs no worktree.
+  - **Randomness goes on the worktree dir, never the branch name.** Tempting fix — "give each agent a
+    random branch id so they can't collide" — solves the *wrong* layer. The corruption is shared
+    HEAD/index (one per working tree), not name collision: two agents in the *same* checkout stomp
+    each other no matter how unique the branch names are. And a random branch id throws away the
+    durable handle — the branch is `feat/<id>` / `chore/<id>` precisely because `<id>` is the
+    greppable key `/ship`, `/land`, and the fire breadcrumb map through; `feat/a7f3k2` can't be traced
+    back to its roadmap item. So: the **worktree directory** is the throwaway/random part (it gives
+    the isolation), the **branch keeps the id** (it gives the traceability). `isolation: "worktree"`
+    already does exactly this — temp dir + real id-named branch. Don't randomize the branch.
 
 ## Verification gate (auto-detect per project)
 
