@@ -11,6 +11,7 @@ Plain words below — you don't need to be a programmer to follow it.
 | Skill | What it does | When you use it |
 |-------|--------------|-----------------|
 | `/inbox` | Dump messy ideas; it sorts each into the right to-do list. | Brain full, need to capture. |
+| `/roadmap` | Owns the roadmap layout: `init` picks a style for a new project, `convert` flips an existing one between the two styles (`section` ↔ `flat`). | New project, or switching layout. |
 | `/fire` | Takes ONE to-do all the way: branch → build → check → save. | Ready to build a queued item. |
 | `/ship` | Files finished, tested work into the history log. | A fired item is verified. |
 | `/forge` | Like `/fire`, but builds new **skills** instead of app features. | Draining the skills backlog. |

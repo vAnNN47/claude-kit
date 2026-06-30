@@ -13,7 +13,7 @@ entry format.
 ## Steps
 
 1. **List.** Read the `✅ Done (unverified)` section of `roadmap.md` and show every item
-   with its metadata (date · branch · commit).
+   with its metadata (date · branch).
 
 2. **Confirm.** Ask the user which items are verified — **all**, or a selected subset.
    Some may still be untested (batched work); only move what the user confirms. If none
@@ -24,9 +24,11 @@ entry format.
    tag and metadata:
    ```
    ## YYYY-MM-DD
-   - [id] (bug) — plain desc. → branch · commit
+   - [id] (bug) — plain desc. → branch
    ```
-   Group under the date heading; create the heading if today's isn't there yet.
+   Group under the date heading; create the heading if today's isn't there yet. Derive the
+   `(category)` from the item's `_(<category>)_` inline tag (`flat` style) or from the
+   category it was fired out of (`section` style) — `✅ Done (unverified)` reads the same in both.
 
 4. **Remove** the archived items from `roadmap.md`'s `Done (unverified)` section.
    **Move, never delete** — the entry now lives in the archive.
