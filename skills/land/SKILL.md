@@ -11,7 +11,7 @@ push** (their rules say so). This is the one step that does, and only when you a
 branch that's already verified/archived and **lands it on the trunk + remote**.
 
 > **Why this exists:** local-only is the safe default, but it lets branches pile up unmerged (the
-> queue drains into branches that never reach `master`). `land` is the deliberate, confirm-gated
+> queue drains into branches that never reach `main`). `land` is the deliberate, confirm-gated
 > "publish it now" rung — `/ship`'s companion the backlog flagged as `[ship_merge_helper]`.
 
 ## Scope (any repo, one engine)

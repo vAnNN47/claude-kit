@@ -16,7 +16,7 @@ tsc+lint — a skill must both *load* and *behave*.
 > queue**. This is that missing rung.
 
 All work happens **in the claude-kit repo** (`~/.claude/skills/claude-kit/`, its own git repo on
-`master`) — not in the app you're using it from.
+`main`) — not in the app you're using it from.
 
 ## Steps
 
@@ -35,8 +35,8 @@ All work happens **in the claude-kit repo** (`~/.claude/skills/claude-kit/`, its
    | **Tweak** (docs, framing, an existing `SKILL.md` / `README.md`) | Edit the relevant file directly. |
    | **Marketplace adopt** | Discover with `npx skills find <query>`, add with `npx skills add <owner/repo> --skill <name>`. Record the **security scan** in the archive line. |
 
-3. **Branch.** In the claude-kit repo, cut a fresh branch off `master`: `chore/forge_<slug>`
-   (tooling work = `chore`, matching fire's prefix scheme). Never commit on `master`.
+3. **Branch.** In the claude-kit repo, cut a fresh branch off `main`: `chore/forge_<slug>`
+   (tooling work = `chore`, matching fire's prefix scheme). Never commit on `main`.
 
 4. **Build it for real**, following claude-kit frontmatter rules (`name` == folder; `description`
    and `argument-hint` are strings; a bracketed `argument-hint` is quoted) and the terse
