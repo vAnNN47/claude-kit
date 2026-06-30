@@ -100,6 +100,20 @@ resolved verb in the first output line.
 4. **Show a diff and confirm before writing.** Conversion is lossless — every id in must equal every
    id out. If a count mismatches, stop and report.
 
+## CLI helper — `roadmap-ids`
+
+`bin/roadmap-ids [path-to-roadmap.md]` (defaults to `./roadmap.md`) prints every `[id]` slug, one
+per line, in file order — no LLM call, no copy-pasting brackets out of the file by hand. Works
+unchanged for both tactics: the `- [id]` bracket syntax is identical in `section` and `flat`. Put
+`~/.claude/skills/claude-kit/bin` on `PATH` once (see README install), then from any app repo:
+
+```bash
+roadmap-ids                  # ids in ./roadmap.md
+roadmap-ids path/to/roadmap.md
+```
+
+Feeds straight into `/fire <id>` / `/ship <id>`.
+
 ## Rules
 
 - **One source of truth.** The format block + `roadmap_style:` line live in the app's CLAUDE.md;

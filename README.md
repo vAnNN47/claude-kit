@@ -50,9 +50,14 @@ A bug that works on iPhone but breaks on Android can swallow an afternoon. Don't
 git clone <this-repo> ~/.claude/skills/claude-kit
 cd ~/.claude/skills/claude-kit
 npx skills add            # restores marketplace skills from skills-lock.json
+export PATH="$HOME/.claude/skills/claude-kit/bin:$PATH"   # add to your shell rc to keep it
 ```
 
 Then reload your editor. Conventions ride along with each app (in that app's `CLAUDE.md`), so cloning an app + this toolkit = the full flow on any device.
+
+`bin/` holds standalone terminal helpers (no LLM call) that ride along with the skills — currently
+`roadmap-ids` (list every roadmap id, for `/fire <id>` / `/ship <id>`; see
+[`skills/roadmap/SKILL.md`](skills/roadmap/SKILL.md)).
 
 ## The model (1 line)
 

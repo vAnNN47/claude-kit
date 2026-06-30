@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Print every roadmap [id] slug, one per line, in file order.
+# Works for both layout tactics (section / flat) — the `- [id]` bracket
+# syntax is identical in both. Use to avoid copy-pasting ids out of
+# roadmap.md when running /fire <id> or /ship <id>.
+#
+# Usage: roadmap-ids [path-to-roadmap.md]   (defaults to ./roadmap.md)
+set -euo pipefail
+
+file="${1:-roadmap.md}"
+
+if [[ ! -f "$file" ]]; then
+  echo "roadmap-ids: no such file: $file" >&2
+  exit 1
+fi
+
+grep -oE '^- \[[a-zA-Z0-9_]+\]' "$file" | sed -E 's/^- \[(.+)\]$/\1/'
