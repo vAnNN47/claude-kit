@@ -1,7 +1,8 @@
 ---
 id: inbox_plan_gate
 created: 2026-06-30
-status: queued
+status: shipped
+shipped: 2026-06-30
 ---
 
 # Plan — Inbox plan-gate: heft decides the plan file, not the command (`inbox_plan_gate`)
