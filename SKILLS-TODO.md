@@ -20,11 +20,11 @@ App tasks go to each app's `roadmap.md` instead.
   `bug-journal.md` (both registries now exist + seeded). Commit per existing rules. Twin of the first
   app's /logbug. Pairs with [skill_refinery] (which reads a KI's `versions`+`search-terms` to re-check
   upstream before re-applying the fix).
-- [inbox_plan_gate] — make heft, not the command, decide the plan file. inbox judges each item:
-  trivial one-liner → nerd line only; complex (multi-step / build-approach decision / needs
-  investigation) → `docs/plans/<id>.md` always, nerd line → pointer. Recommend + create by default,
-  explicit opt-out. Rejected auto-entering plan-mode (wrong tool; plan-mode = deciding, not logging).
-  Plain `/inbox` and plan-mode + `/inbox` then converge. See docs/plans/inbox_plan_gate.md.
+- [inbox_plan_gate] — on bare `/inbox`, the agent judges per item whether a plan is needed (not at
+  all costs, not never). Needs-plan triggers: build-approach decision (vanilla vs island, schema,
+  new collection), multi-step, ambiguity/needs investigation, big brain-dump. If needed → inbox
+  `EnterPlanMode`, asks questions, drafts plan, `ExitPlanMode`, writes `docs/plans/<id>.md` + pointer
+  nerd line. If not → nerd line only. Makes bare `/inbox` self-correcting. See docs/plans/inbox_plan_gate.md.
 - [timeline_provenance_stamps] — every roadmap/archive item carries dated frontmatter
   (`inboxed:` / `fired:` / `shipped:`). /inbox stamps `inboxed`, /fire stamps `fired`, /ship stamps
   `shipped`. This is a cheap *log* on EVERY item (text changes included), distinct from the

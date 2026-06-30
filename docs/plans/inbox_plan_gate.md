@@ -21,29 +21,29 @@ CLAUDE.md already says "anything bigger than a one-liner gets a plan file" — t
 just never applies it. Big brain-dumps (e.g. "build portfolio grid" — a vanilla-vs-island decision)
 get buried in a fat `> nerd:` line instead of a real plan.
 
-## Decisions (this is what was settled)
+## Decisions (this is what was settled — user-final)
 
-1. **Heft, not command, decides the plan file.** Bake the plan-decision into inbox itself; plan-mode
-   becomes optional *richness*, not a gate. The two flows then converge.
+1. **The agent decides if a plan is needed — not at all costs, not never.** On bare `/inbox`, inbox
+   judges each item: does it actually need a plan? Not every item does; not every item is skipped.
+   The judgement is the gate, made by the agent, every time — so the user never has to remember to
+   run plan-mode.
 
-2. **Per-item heft test** (run in inbox's classify step, each item judged independently):
-   - **trivial one-liner** (e.g. "header text red") → nerd line only, **no plan file**.
-   - **complex** → `docs/plans/<id>.md` **always**, nerd line flips to a pointer
-     (`> nerd: … — see docs/plans/<id>.md`).
-   - "Complex" triggers: multi-step, **or** a build-approach decision (vanilla vs island, schema
-     shape, new collection), **or** needs investigation.
+2. **Needs-a-plan triggers** (any one → plan): a build-approach decision (e.g. vanilla vs Preact
+   island, schema shape, new collection), multi-step work, real ambiguity / needs investigation, or a
+   large brain-dump. **No plan** → a clear one-liner with an obvious approach (e.g. "header text red").
 
-3. **Recommend + create by default, opt-out explicit.** For a complex item, inbox creates the plan by
-   default; it does **not** silently skip it. The user can opt out per-item with an explicit
-   "no plan" — friction lands on the refuser, not on the default.
+3. **If a plan IS needed → inbox enters plan mode itself.** It calls `EnterPlanMode`, **asks the
+   clarifying questions**, drafts the plan, then `ExitPlanMode` for approval; on accept it writes
+   `docs/plans/<id>.md` and points the nerd line at it. The plan is born *with* its open questions
+   answered — that is the whole value.
 
-4. **Rejected: auto-enter plan-mode on bare `/inbox`.** Technically possible (`EnterPlanMode` tool),
-   but wrong tool for the goal — forcing the interactive plan-mode round-trip on a text change buys
-   nothing (no design decision to make) and costs a full back-and-forth. Plan-mode is for *deciding*,
-   not for *logging*. See [[timeline_provenance_stamps]] for the logging half.
+4. **If no plan is needed → file the nerd line only.** No plan file, no plan mode. Keeps trivial
+   items from cluttering `docs/plans/` and burning a planning round-trip for nothing.
 
-5. **Do NOT blanket-create for trivial items.** A plan file per text change = roadmap clutter +
-   token noise that drowns the real plans. The heft test is the filter; keep it.
+5. **Result: bare `/inbox` is self-correcting.** It reaches for a plan exactly when one is warranted,
+   whether or not the user remembered to start in plan-mode. `/inbox` and `/inbox`+plan converge on
+   the *needed* items. Logging dates is [[timeline_provenance_stamps]]; reading them is
+   [[history_crisscross]].
 
 ## Plan-file shape (when created)
 
@@ -64,9 +64,11 @@ _TBD — expanded at build time._
 
 ## Steps
 
-1. Edit `inbox` SKILL.md classify step: add the per-item heft verdict (trivial vs complex) and the
-   "complex → create plan stub + flip nerd line to pointer, default-on, explicit opt-out" rule.
-2. Add a heft-test column to the inbox proposal table so the verdict is visible before write.
-3. Confirm the app CLAUDE.md "bigger than one-liner → plan file" rule and the `docs/plans/<id>.md`
-   path are consistent with what inbox writes.
-4. Pairs with [[timeline_provenance_stamps]] (the date log) and [[history_crisscross]] (the reader).
+1. Edit `inbox` SKILL.md: in the classify step, for each item make a **needs-a-plan judgement** using
+   the triggers in Decision 2 (state the verdict in the proposal so it's visible before any write).
+2. For items that need a plan: **`EnterPlanMode`**, ask the clarifying questions, draft the plan,
+   `ExitPlanMode` for approval, then write `docs/plans/<id>.md` + point the nerd line at it.
+3. For items that don't: file the nerd line only — no plan file, no plan mode.
+4. Add a `TEST.md` case: one needs-plan item (asserts plan mode + plan file) and one trivial item
+   (asserts nerd-line-only, no plan file) — pins the gate so it can't silently drift.
+5. Pairs with [[timeline_provenance_stamps]] (the date log) and [[history_crisscross]] (the reader).
