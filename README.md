@@ -27,11 +27,12 @@ Plain words below — you don't need to be a programmer to follow it.
 ## The flow
 
 ```
-idea  →  /inbox  →  /fire   →  /ship   →  history
-                    (/forge for skills)
+idea  →  /inbox  →  /fire   →  /ship   →  /land   →  remote
+                    (/forge for skills)   (archive)   (push)
 ```
 
-That's it. Capture → do one thing → file it away. One item, one branch, one save. Local only.
+That's it. Capture → do one thing → file it away → publish it. One item, one branch, one save.
+Everything stays local until `/land` — the only step that touches the remote, and only when you say so.
 
 ## Hit a wall? (the 3-hour-bug rule)
 
