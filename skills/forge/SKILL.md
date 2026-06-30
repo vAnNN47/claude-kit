@@ -79,6 +79,9 @@ All work happens **in the claude-kit repo** (`~/.claude/skills/claude-kit/`, its
 
 - **Exactly one slug per call.** Batching = run forge again. Keeps branches/commits isolated and
   revertible.
+- **Parallel forges = one worktree each** (STANDARDS → "Parallel work = one git worktree each").
+  Forging several slugs at once → spawn each in its own `isolation: "worktree"` agent; never two
+  forges in one checkout (shared HEAD = commits land on the wrong branch). No worktrees → one at a time.
 - **Local only.** Never `git push`, open a PR, or merge. Remote git is the user's job.
 - Load-check is mandatory — shipping a skill that won't load is the failure mode this gate prevents.
 - Self-test (`/skill-tester`) is mandatory for a new/changed skill — a skill that loads but mangles

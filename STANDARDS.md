@@ -40,6 +40,13 @@ the sections that match.
   `/forge` skill) first, *then* `/land`; **committed, app work** → `/ship` to archive, then `/land`
   to publish; **committed, already archived / skill work** → `/land`. `/land` is the only rung that
   pushes — name it explicitly; don't ask a vague "want me to push?".
+- **Parallel work = one git worktree each — never two builds in one checkout.** A repo has a single
+  HEAD per working tree, so concurrent `checkout`/commit from two agents corrupts *which branch a
+  commit lands on* (the mismatch). To build more than one id at once, spawn each in its own worktree
+  (the Agent tool's `isolation: "worktree"`) — one id → one branch per worktree, fully isolated.
+  No worktrees? **Serialize** — one build at a time in the shared checkout. Land serially regardless:
+  `/land` the first (ff-only), rebase the next onto the new tip, land it; `/land` refuses a non-ff so
+  a tangled merge can't happen by accident. Single-threaded work needs no worktree.
 
 ## Verification gate (auto-detect per project)
 

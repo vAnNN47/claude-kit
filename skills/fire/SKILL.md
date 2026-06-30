@@ -27,6 +27,20 @@ detect the project's stack and use only the matching sections.
    - bug → `fix/<id>` · improvement → `feat/<id>` · tech debt → `chore/<id>`
    Never work directly on the default branch.
 
+   **Unlanded-branch preflight (warn before cutting).** Before creating the branch, list any
+   local branches ahead of the trunk — already-fired/shipped work that never reached trunk:
+   ```sh
+   trunk=$(git rev-parse --verify main >/dev/null 2>&1 && echo main || echo master)
+   for b in $(git for-each-ref --format='%(refname:short)' refs/heads); do
+     [ "$b" = "$trunk" ] && continue
+     n=$(git rev-list --count "$trunk..$b") && [ "$n" -gt 0 ] && echo "$b ($n ahead)"
+   done
+   ```
+   If the list is non-empty, **stop and warn**: the new branch would be cut from a stale trunk,
+   so its roadmap.md will still show the unlanded items in To do and you'll hit a rebase chain
+   later. Recommend `/land`ing those branches first, then continue only on the user's say-so.
+   This is the tripwire for the "queue drains into branches that never reach trunk" failure.
+
 4. **Implement** the change described by the nerd line.
 
 5. **Verify before committing.** Run the project's checks — TypeScript (`npx tsc
@@ -61,5 +75,8 @@ detect the project's stack and use only the matching sections.
 
 - **Exactly one id per call.** Batching = run fire again. Keeps branches/commits isolated
   and revertible.
+- **Parallel fires = one worktree each** (STANDARDS → "Parallel work = one git worktree each").
+  Firing several ids at once → spawn each in its own `isolation: "worktree"` agent; never two fires
+  in one checkout (shared HEAD = commits land on the wrong branch). No worktrees → fire one at a time.
 - **Local only.** Never `git push`, open a PR, or merge. The user handles remote git.
 - Verify gate is mandatory — committing red is the failure mode this skill exists to prevent.
