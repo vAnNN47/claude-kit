@@ -22,7 +22,7 @@ Plain words below — you don't need to be a programmer to follow it.
 | `/land` | Lands a finished branch: fast-forwards it onto the trunk, deletes it, pushes. The one step that touches the remote — always asks first. | Ready to publish a verified branch. |
 | `/rn-debug` | Hunts "works on iPhone, blank on Android" bugs without flailing. | A screen breaks on one platform. |
 | `/refinery` *(planned)* | Before hand-coding a fix, checks if a package or a newer version already solved it. | Starting on a known-hard problem. |
-| `/lessons` *(planned)* | After beating a nasty bug, saves the recipe so you never re-fight it. | Right after a hard win. |
+| `/lessons` | After beating a nasty bug, saves the recipe so you never re-fight it. | Right after a hard win. |
 
 ## The flow
 

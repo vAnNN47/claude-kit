@@ -11,12 +11,6 @@ App tasks go to each app's `roadmap.md` instead.
 - [skill_refinery] — /refinery: before solving a known recurring RN problem with custom code, scan
   installed packages (machine-scope skills dir) + web-search whether a newer upstream version already
   fixes it; try upstream first, verify with the user, else fall back to the local package.
-- [skill_lessons] — /lessons (מסקנות): after a hard bug is solved, distill the recipe so recurrences
-  are looked up, not re-researched. Route by type: an RN/Expo **code** bug → a new `rn-debug` Known
-  Issue (symptom / root-cause / fix / versions / search-terms); a **tooling/plugin/env** bug →
-  `bug-journal.md` (both registries now exist + seeded). Commit per existing rules. Twin of the first
-  app's /logbug. Pairs with [skill_refinery] (which reads a KI's `versions`+`search-terms` to re-check
-  upstream before re-applying the fix).
 - [timeline_provenance_stamps] — every roadmap/archive item carries dated frontmatter
   (`inboxed:` / `fired:` / `shipped:`). /inbox stamps `inboxed`, /fire stamps `fired`, /ship stamps
   `shipped`. This is a cheap *log* on EVERY item (text changes included), distinct from the

@@ -6,7 +6,7 @@ bugs that took real digging — the kind worth never re-debugging from scratch. 
 go here** — those live in each app's `roadmap.md`.
 
 This is the tooling twin of `skills/rn-debug` Known Issues (which catalogues RN/Expo *code* mega-bugs).
-The planned **`/lessons`** skill appends here after a hard win; the planned **`/refinery`** re-checks
+The **`/lessons`** skill appends here after a hard win; the planned **`/refinery`** re-checks
 whether a newer version already fixed an entry before you re-apply a workaround.
 
 **Entry template:**
